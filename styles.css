@@ -237,6 +237,30 @@ section {
     line-height: 1.6;
 }
 
+/* Hero Image Container - houses the branded banner image */
+.hero-image-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto var(--spacing-xl) auto;
+    /* Add subtle shadow for depth */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-lg);
+    /* Smooth transition for hover effects */
+    transition: transform var(--transition-base);
+}
+
+.hero-image:hover {
+    /* Subtle zoom on hover for interactivity */
+    transform: scale(1.02);
+}
+
 /* Hero decorative element - subtle animated background shape */
 .hero-decoration {
     position: absolute;
@@ -677,6 +701,19 @@ section {
     left: var(--spacing-sm);
 }
 
+/* Visually hidden - hides content visually but keeps it accessible to screen readers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* Focus visible for all interactive elements */
 a:focus-visible,
 button:focus-visible,
@@ -745,6 +782,11 @@ textarea:focus-visible {
 
     .hero-subtitle {
         font-size: 1.5rem;
+    }
+
+    /* Hero image gets larger on tablets */
+    .hero-image-container {
+        max-width: 1200px;
     }
 
     section {
