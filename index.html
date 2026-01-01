@@ -96,15 +96,16 @@
             </div>
 
             <div class="hero-content">
-                <!-- Hidden headline for SEO - image contains the branding -->
-                <h1 id="hero-title" class="hero-title visually-hidden">
-                    Jeffy Makes It Fun - Storytelling Unleashed
+                <!-- Main headline - visible and styled -->
+                <h1 id="hero-title" class="hero-title">
+                    Welcome to <span class="gradient-text">JeffyMakesIt.Fun</span>
                 </h1>
 
-                <!-- Subheadline explaining what visitors will find -->
+                <!-- Subheadline with personality -->
                 <p class="hero-subtitle">
-                    Where creativity meets innovation, and every idea becomes an adventure.
-                    Explore blogs on technology, community, and professional growth!
+                    Creativity × Innovation - Where every idea becomes an adventure.
+                    Explore articles on innovation, technology, community, and whatever else
+                    pops into Jeffy's ADHD-Augmented mind!
                 </p>
 
                 <!--
@@ -115,15 +116,16 @@
                     <!-- Primary CTA: Direct link to blog -->
                     <a href="https://blog.jeffymakesit.fun"
                        class="btn btn-primary"
-                       aria-label="Visit Jeffy's blog">
-                        Visit My Blog
+                       aria-label="Visit The JMIF Blog">
+                        The JMIF Blog
                     </a>
 
-                    <!-- Secondary CTA: Scroll to subscription form -->
-                    <a href="#subscribe"
-                       class="btn btn-secondary"
-                       aria-label="Subscribe to newsletter">
-                        Stay Connected
+                    <!-- Secondary CTA: Opens Jotform newsletter lightbox -->
+                    <a href="javascript:void(0);"
+                       class="btn btn-secondary lightbox-253648973091064"
+                       aria-label="Subscribe to our newsletter"
+                       onclick="return false;">
+                        Subscribe to our Newsletter
                     </a>
                 </div>
             </div>
@@ -349,5 +351,27 @@
 
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
+
+    <!--
+        JOTFORM NEWSLETTER LIGHTBOX
+        Integrated newsletter subscription form that appears as a lightbox overlay.
+        Form ID: 253648973091064
+    -->
+    <script src="https://cdn.jotfor.ms/s/static/latest/static/feedback2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var JFL_253648973091064 = new JotformFeedback({
+            formId: '253648973091064',
+            base: 'https://form.jotform.com/',
+            windowTitle: 'Join Our Mailing List',
+            backgroundColor: '#FFA500',
+            fontColor: '#FFFFFF',
+            type: 'false',
+            height: 500,
+            width: 700,
+            openOnLoad: false
+        });
+    </script>
+    <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+    <script>window.jotformEmbedHandler("iframe[id='253648973091064']", "https://form.jotform.com/")</script>
 </body>
 </html>
