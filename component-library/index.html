@@ -29,7 +29,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #FFF7E6;
+            background-color: #7A7A7A;
             color: #1F2933;
         }
 
@@ -39,7 +39,7 @@
 
         .section {
             padding: 48px 24px;
-            border-bottom: 2px solid #1E3A8A;
+            border-bottom: 6px solid #1E3A8A;
         }
 
         .section-title {
@@ -63,9 +63,22 @@
         .component-showcase {
             background: white;
             padding: 24px;
-            border-radius: 8px;
+            border-radius: 0;
             margin-bottom: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 5px solid #1FB6B2;
+            box-shadow: 12px 12px 0px rgba(0,0,0,0.8);
+        }
+
+        .component-showcase:nth-child(3n+1) {
+            border-color: #1FB6B2;
+        }
+
+        .component-showcase:nth-child(3n+2) {
+            border-color: #FFD83D;
+        }
+
+        .component-showcase:nth-child(3n+3) {
+            border-color: #EC4899;
         }
 
         .component-row {
@@ -198,15 +211,86 @@
                     main: '#1E3A8A', // Deep Comic Blue
                 },
                 background: {
-                    default: '#FFF7E6', // Cream White
+                    default: '#7A7A7A', // Mid-range Grey
                     paper: '#FFFFFF',
                 },
                 text: {
                     primary: '#1F2933', // Charcoal Ink
                 },
             },
+            shape: {
+                borderRadius: 0, // Squared corners for retro look
+            },
             typography: {
                 fontFamily: 'Roboto, sans-serif',
+            },
+            components: {
+                MuiPaper: {
+                    styleOverrides: {
+                        root: {
+                            border: '4px solid #1E3A8A',
+                            boxShadow: '10px 10px 0px rgba(0,0,0,0.7)',
+                        },
+                    },
+                },
+                MuiCard: {
+                    styleOverrides: {
+                        root: {
+                            border: '5px solid #84CC16',
+                            boxShadow: '12px 12px 0px rgba(0,0,0,0.8)',
+                        },
+                    },
+                },
+                MuiButton: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 0,
+                            fontWeight: 700,
+                        },
+                        contained: {
+                            boxShadow: '4px 4px 0px rgba(0,0,0,0.6)',
+                            '&:hover': {
+                                boxShadow: '6px 6px 0px rgba(0,0,0,0.7)',
+                            },
+                        },
+                        outlined: {
+                            borderWidth: '3px',
+                            '&:hover': {
+                                borderWidth: '3px',
+                            },
+                        },
+                    },
+                },
+                MuiTextField: {
+                    styleOverrides: {
+                        root: {
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderWidth: '3px',
+                                },
+                            },
+                        },
+                    },
+                },
+                MuiDialog: {
+                    styleOverrides: {
+                        paper: {
+                            border: '6px solid #EC4899',
+                            boxShadow: '16px 16px 0px rgba(0,0,0,0.9)',
+                        },
+                    },
+                },
+                MuiAccordion: {
+                    styleOverrides: {
+                        root: {
+                            border: '4px solid #FFD83D',
+                            boxShadow: '8px 8px 0px rgba(0,0,0,0.7)',
+                            '&:before': {
+                                display: 'none',
+                            },
+                        },
+                    },
+                },
             },
         });
 
