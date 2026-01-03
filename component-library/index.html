@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Component Library - JeffyMakesIt.Fun</title>
+
+    <!-- React and ReactDOM via CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Material UI via CDN -->
+    <script src="https://unpkg.com/@mui/material@5.15.0/umd/material-ui.production.min.js"></script>
+
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFF7E6;
+            color: #1F2933;
+        }
+
+        .app-container {
+            min-height: 100vh;
+        }
+
+        .section {
+            padding: 48px 24px;
+            border-bottom: 2px solid #1E3A8A;
+        }
+
+        .section-title {
+            color: #1E3A8A;
+            margin-bottom: 32px;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .subsection {
+            margin-bottom: 32px;
+        }
+
+        .subsection-title {
+            color: #1FB6B2;
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .component-showcase {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .component-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            color: #1E3A8A;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const {
+            ThemeProvider,
+            createTheme,
+            CssBaseline,
+            AppBar,
+            Toolbar,
+            Typography,
+            Container,
+            Box,
+            Button,
+            ButtonGroup,
+            Fab,
+            IconButton,
+            Switch,
+            Avatar,
+            Chip,
+            Divider,
+            List,
+            ListItem,
+            ListItemButton,
+            ListItemIcon,
+            ListItemText,
+            ListItemAvatar,
+            Collapse,
+            Table,
+            TableBody,
+            TableCell,
+            TableContainer,
+            TableHead,
+            TableRow,
+            TableSortLabel,
+            Paper,
+            Tooltip,
+            Checkbox,
+            TextField,
+            RadioGroup,
+            Radio,
+            FormControlLabel,
+            FormControl,
+            FormLabel,
+            Rating,
+            Select,
+            MenuItem,
+            InputLabel,
+            Slider,
+            ToggleButton,
+            ToggleButtonGroup,
+            Alert,
+            Backdrop,
+            Dialog,
+            DialogTitle,
+            DialogContent,
+            DialogActions,
+            CircularProgress,
+            LinearProgress,
+            Skeleton,
+            Snackbar,
+            Accordion,
+            AccordionSummary,
+            AccordionDetails,
+            Card,
+            CardContent,
+            CardActions,
+            CardHeader,
+            CardMedia,
+            BottomNavigation,
+            BottomNavigationAction,
+            Breadcrumbs,
+            Drawer,
+            Link,
+            Menu,
+            Pagination,
+            SpeedDial,
+            SpeedDialAction,
+            SpeedDialIcon,
+            Stepper,
+            Step,
+            StepLabel,
+            Tabs,
+            Tab,
+            Grid,
+            Stack,
+            ImageList,
+            ImageListItem,
+            Modal,
+            Popover,
+            Popper,
+            Portal,
+            ClickAwayListener,
+        } = MaterialUI;
+
+        // Custom theme with the specified color palette
+        const theme = createTheme({
+            palette: {
+                primary: {
+                    main: '#1FB6B2', // Electric Teal
+                },
+                secondary: {
+                    main: '#FFD83D', // Sunburst Yellow
+                },
+                error: {
+                    main: '#EC4899', // Hot Magenta
+                },
+                success: {
+                    main: '#84CC16', // Lime Pop Green
+                },
+                info: {
+                    main: '#1E3A8A', // Deep Comic Blue
+                },
+                background: {
+                    default: '#FFF7E6', // Cream White
+                    paper: '#FFFFFF',
+                },
+                text: {
+                    primary: '#1F2933', // Charcoal Ink
+                },
+            },
+            typography: {
+                fontFamily: 'Roboto, sans-serif',
+            },
+        });
+
+        function ComponentLibrary() {
+            const [dialogOpen, setDialogOpen] = React.useState(false);
+            const [backdropOpen, setBackdropOpen] = React.useState(false);
+            const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+            const [drawerOpen, setDrawerOpen] = React.useState(false);
+            const [anchorEl, setAnchorEl] = React.useState(null);
+            const [popoverAnchorEl, setPopoverAnchorEl] = React.useState(null);
+            const [activeTab, setActiveTab] = React.useState(0);
+            const [tableData, setTableData] = React.useState([
+                { id: 1, name: 'Cupcake', calories: 305, fat: 3.7, carbs: 67, protein: 4.3 },
+                { id: 2, name: 'Donut', calories: 452, fat: 25.0, carbs: 51, protein: 4.9 },
+                { id: 3, name: 'Eclair', calories: 262, fat: 16.0, carbs: 24, protein: 6.0 },
+            ]);
+            const [orderBy, setOrderBy] = React.useState('name');
+            const [order, setOrder] = React.useState('asc');
+            const [modalOpen, setModalOpen] = React.useState(false);
+            const [nestedOpen, setNestedOpen] = React.useState(false);
+            const [bottomNavValue, setBottomNavValue] = React.useState(0);
+            const [alignment, setAlignment] = React.useState('left');
+            const [checkboxState, setCheckboxState] = React.useState(false);
+            const [radioValue, setRadioValue] = React.useState('option1');
+            const [ratingValue, setRatingValue] = React.useState(3);
+            const [selectValue, setSelectValue] = React.useState('');
+            const [sliderValue, setSliderValue] = React.useState(30);
+            const [switchState, setSwitchState] = React.useState(false);
+            const [activeStep, setActiveStep] = React.useState(0);
+
+            const handleRequestSort = (property) => {
+                const isAsc = orderBy === property && order === 'asc';
+                setOrder(isAsc ? 'desc' : 'asc');
+                setOrderBy(property);
+            };
+
+            const sortedData = React.useMemo(() => {
+                return [...tableData].sort((a, b) => {
+                    if (order === 'asc') {
+                        return a[orderBy] < b[orderBy] ? -1 : 1;
+                    } else {
+                        return a[orderBy] > b[orderBy] ? -1 : 1;
+                    }
+                });
+            }, [tableData, order, orderBy]);
+
+            return (
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <div className="app-container">
+                        {/* App Bar */}
+                        <AppBar position="sticky" color="primary">
+                            <Toolbar>
+                                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                                    JeffyMakesIt.Fun - Component Library
+                                </Typography>
+                                <Button color="inherit">Explore</Button>
+                            </Toolbar>
+                        </AppBar>
+
+                        <Container maxWidth="xl">
+                            {/* Buttons Section */}
+                            <div className="section">
+                                <h2 className="section-title">Buttons</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Basic Buttons</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-label">Text Buttons</div>
+                                        <div className="component-row">
+                                            <Button>Default</Button>
+                                            <Button color="primary">Primary</Button>
+                                            <Button color="secondary">Secondary</Button>
+                                            <Button color="error">Error</Button>
+                                            <Button color="success">Success</Button>
+                                            <Button disabled>Disabled</Button>
+                                        </div>
+
+                                        <div className="component-label">Contained Buttons</div>
+                                        <div className="component-row">
+                                            <Button variant="contained">Default</Button>
+                                            <Button variant="contained" color="primary">Primary</Button>
+                                            <Button variant="contained" color="secondary">Secondary</Button>
+                                            <Button variant="contained" color="error">Error</Button>
+                                            <Button variant="contained" color="success">Success</Button>
+                                            <Button variant="contained" disabled>Disabled</Button>
+                                        </div>
+
+                                        <div className="component-label">Outlined Buttons</div>
+                                        <div className="component-row">
+                                            <Button variant="outlined">Default</Button>
+                                            <Button variant="outlined" color="primary">Primary</Button>
+                                            <Button variant="outlined" color="secondary">Secondary</Button>
+                                            <Button variant="outlined" color="error">Error</Button>
+                                            <Button variant="outlined" color="success">Success</Button>
+                                            <Button variant="outlined" disabled>Disabled</Button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Button Sizes</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <Button variant="contained" size="small">Small</Button>
+                                            <Button variant="contained" size="medium">Medium</Button>
+                                            <Button variant="contained" size="large">Large</Button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Buttons with Icons</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <Button variant="contained" startIcon={<span className="material-icons">send</span>}>
+                                                Send
+                                            </Button>
+                                            <Button variant="contained" endIcon={<span className="material-icons">arrow_forward</span>}>
+                                                Next
+                                            </Button>
+                                            <Button variant="outlined" startIcon={<span className="material-icons">delete</span>}>
+                                                Delete
+                                            </Button>
+                                            <Button variant="outlined" startIcon={<span className="material-icons">cloud_upload</span>}>
+                                                Upload
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Icon Buttons</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <IconButton color="primary">
+                                                <span className="material-icons">favorite</span>
+                                            </IconButton>
+                                            <IconButton color="secondary">
+                                                <span className="material-icons">star</span>
+                                            </IconButton>
+                                            <IconButton color="error">
+                                                <span className="material-icons">delete</span>
+                                            </IconButton>
+                                            <IconButton color="success">
+                                                <span className="material-icons">check_circle</span>
+                                            </IconButton>
+                                            <IconButton disabled>
+                                                <span className="material-icons">block</span>
+                                            </IconButton>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Button Groups</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-label">Contained</div>
+                                        <div className="component-row">
+                                            <ButtonGroup variant="contained">
+                                                <Button>One</Button>
+                                                <Button>Two</Button>
+                                                <Button>Three</Button>
+                                            </ButtonGroup>
+                                        </div>
+
+                                        <div className="component-label">Outlined</div>
+                                        <div className="component-row">
+                                            <ButtonGroup variant="outlined">
+                                                <Button>One</Button>
+                                                <Button>Two</Button>
+                                                <Button>Three</Button>
+                                            </ButtonGroup>
+                                        </div>
+
+                                        <div className="component-label">Text</div>
+                                        <div className="component-row">
+                                            <ButtonGroup variant="text">
+                                                <Button>One</Button>
+                                                <Button>Two</Button>
+                                                <Button>Three</Button>
+                                            </ButtonGroup>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Floating Action Button</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <Fab color="primary" aria-label="add">
+                                                <span className="material-icons">add</span>
+                                            </Fab>
+                                            <Fab color="secondary" aria-label="edit">
+                                                <span className="material-icons">edit</span>
+                                            </Fab>
+                                            <Fab variant="extended" color="primary">
+                                                <span className="material-icons" style={{marginRight: 8}}>navigation</span>
+                                                Navigate
+                                            </Fab>
+                                            <Fab size="small" color="primary">
+                                                <span className="material-icons">add</span>
+                                            </Fab>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Switches and Toggle Section */}
+                            <div className="section">
+                                <h2 className="section-title">Switches & Toggle Buttons</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Switches</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <FormControlLabel control={<Switch defaultChecked />} label="Checked" />
+                                            <FormControlLabel control={<Switch />} label="Unchecked" />
+                                            <FormControlLabel control={<Switch disabled />} label="Disabled" />
+                                            <FormControlLabel control={<Switch color="secondary" defaultChecked />} label="Secondary" />
+                                            <FormControlLabel control={<Switch color="error" defaultChecked />} label="Error" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Toggle Buttons</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <ToggleButtonGroup
+                                                value={alignment}
+                                                exclusive
+                                                onChange={(e, newAlignment) => setAlignment(newAlignment)}
+                                            >
+                                                <ToggleButton value="left">
+                                                    <span className="material-icons">format_align_left</span>
+                                                </ToggleButton>
+                                                <ToggleButton value="center">
+                                                    <span className="material-icons">format_align_center</span>
+                                                </ToggleButton>
+                                                <ToggleButton value="right">
+                                                    <span className="material-icons">format_align_right</span>
+                                                </ToggleButton>
+                                                <ToggleButton value="justify">
+                                                    <span className="material-icons">format_align_justify</span>
+                                                </ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Avatars Section */}
+                            <div className="section">
+                                <h2 className="section-title">Avatars</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Letter Avatars</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <Avatar>A</Avatar>
+                                            <Avatar sx={{ bgcolor: theme.palette.primary.main }}>JM</Avatar>
+                                            <Avatar sx={{ bgcolor: theme.palette.secondary.main }}>FN</Avatar>
+                                            <Avatar sx={{ bgcolor: theme.palette.error.main }}>ER</Avatar>
+                                            <Avatar sx={{ bgcolor: theme.palette.success.main }}>OK</Avatar>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Icon Avatars</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <Avatar>
+                                                <span className="material-icons">person</span>
+                                            </Avatar>
+                                            <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                                                <span className="material-icons">folder</span>
+                                            </Avatar>
+                                            <Avatar sx={{ bgcolor: theme.palette.secondary.main }}>
+                                                <span className="material-icons">assignment</span>
+                                            </Avatar>
+                                            <Avatar sx={{ bgcolor: theme.palette.error.main }}>
+                                                <span className="material-icons">error</span>
+                                            </Avatar>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Chips Section */}
+                            <div className="section">
+                                <h2 className="section-title">Chips</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Various Chip Types</h3>
+                                    <div className="component-showcase">
+                                        <div className="component-label">Basic Chips</div>
+                                        <div className="component-row">
+                                            <Chip label="Basic Chip" />
+                                            <Chip label="Clickable" onClick={() => alert('Clicked!')} />
+                                            <Chip label="Deletable" onDelete={() => alert('Deleted!')} />
+                                            <Chip label="Disabled" disabled />
+                                        </div>
+
+                                        <div className="component-label">Chip with Icons</div>
+                                        <div className="component-row">
+                                            <Chip icon={<span className="material-icons">face</span>} label="Icon Chip" />
+                                            <Chip icon={<span className="material-icons">done</span>} label="Success" color="success" />
+                                            <Chip icon={<span className="material-icons">error</span>} label="Error" color="error" />
+                                        </div>
+
+                                        <div className="component-label">Avatar Chips</div>
+                                        <div className="component-row">
+                                            <Chip avatar={<Avatar>M</Avatar>} label="Mike" />
+                                            <Chip avatar={<Avatar>J</Avatar>} label="Jane" onDelete={() => {}} />
+                                            <Chip avatar={<Avatar sx={{ bgcolor: theme.palette.primary.main }}>A</Avatar>} label="Alex" />
+                                        </div>
+
+                                        <div className="component-label">Colored Chips</div>
+                                        <div className="component-row">
+                                            <Chip label="Primary" color="primary" />
+                                            <Chip label="Secondary" color="secondary" />
+                                            <Chip label="Success" color="success" />
+                                            <Chip label="Error" color="error" />
+                                            <Chip label="Info" color="info" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Dividers Section */}
+                            <div className="section">
+                                <h2 className="section-title">Dividers</h2>
+
+                                <div className="subsection">
+                                    <div className="component-showcase">
+                                        <div style={{ padding: '16px 0' }}>
+                                            <Typography>Content above divider</Typography>
+                                            <Divider sx={{ my: 2 }} />
+                                            <Typography>Content below divider</Typography>
+                                            <Divider sx={{ my: 2 }} textAlign="left">LEFT</Divider>
+                                            <Typography>Center text divider</Typography>
+                                            <Divider sx={{ my: 2 }}>CENTER</Divider>
+                                            <Typography>Right text divider</Typography>
+                                            <Divider sx={{ my: 2 }} textAlign="right">RIGHT</Divider>
+                                            <Typography>Divider with chip</Typography>
+                                            <Divider sx={{ my: 2 }}>
+                                                <Chip label="CHIP" />
+                                            </Divider>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Lists Section */}
+                            <div className="section">
+                                <h2 className="section-title">Lists</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Basic List</h3>
+                                    <div className="component-showcase">
+                                        <List>
+                                            <ListItem>
+                                                <ListItemText primary="Item One" />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemText primary="Item Two" />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemText primary="Item Three" />
+                                            </ListItem>
+                                        </List>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Nested List</h3>
+                                    <div className="component-showcase">
+                                        <List>
+                                            <ListItemButton onClick={() => setNestedOpen(!nestedOpen)}>
+                                                <ListItemIcon>
+                                                    <span className="material-icons">inbox</span>
+                                                </ListItemIcon>
+                                                <ListItemText primary="Inbox" />
+                                                <span className="material-icons">
+                                                    {nestedOpen ? 'expand_less' : 'expand_more'}
+                                                </span>
+                                            </ListItemButton>
+                                            <Collapse in={nestedOpen} timeout="auto" unmountOnExit>
+                                                <List component="div" disablePadding>
+                                                    <ListItemButton sx={{ pl: 4 }}>
+                                                        <ListItemIcon>
+                                                            <span className="material-icons">star</span>
+                                                        </ListItemIcon>
+                                                        <ListItemText primary="Starred" />
+                                                    </ListItemButton>
+                                                </List>
+                                            </Collapse>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <span className="material-icons">drafts</span>
+                                                </ListItemIcon>
+                                                <ListItemText primary="Drafts" />
+                                            </ListItem>
+                                        </List>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Folder List</h3>
+                                    <div className="component-showcase">
+                                        <List>
+                                            <ListItem>
+                                                <ListItemAvatar>
+                                                    <Avatar>
+                                                        <span className="material-icons">folder</span>
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText primary="Photos" secondary="Jan 9, 2024" />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemAvatar>
+                                                    <Avatar>
+                                                        <span className="material-icons">folder</span>
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText primary="Work" secondary="Jan 7, 2024" />
+                                            </ListItem>
+                                        </List>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Interactive List</h3>
+                                    <div className="component-showcase">
+                                        <List>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <Checkbox edge="start" />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Line item 1" />
+                                            </ListItemButton>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <Checkbox edge="start" />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Line item 2" />
+                                            </ListItemButton>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <Checkbox edge="start" />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Line item 3" />
+                                            </ListItemButton>
+                                        </List>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Tables Section */}
+                            <div className="section">
+                                <h2 className="section-title">Tables</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Basic Table</h3>
+                                    <div className="component-showcase">
+                                        <TableContainer component={Paper}>
+                                            <Table>
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell>Dessert</TableCell>
+                                                        <TableCell align="right">Calories</TableCell>
+                                                        <TableCell align="right">Fat (g)</TableCell>
+                                                        <TableCell align="right">Carbs (g)</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    <TableRow>
+                                                        <TableCell>Frozen yogurt</TableCell>
+                                                        <TableCell align="right">159</TableCell>
+                                                        <TableCell align="right">6.0</TableCell>
+                                                        <TableCell align="right">24</TableCell>
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell>Ice cream sandwich</TableCell>
+                                                        <TableCell align="right">237</TableCell>
+                                                        <TableCell align="right">9.0</TableCell>
+                                                        <TableCell align="right">37</TableCell>
+                                                    </TableRow>
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Dense Table</h3>
+                                    <div className="component-showcase">
+                                        <TableContainer component={Paper}>
+                                            <Table size="small">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell>Dessert</TableCell>
+                                                        <TableCell align="right">Calories</TableCell>
+                                                        <TableCell align="right">Fat (g)</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    <TableRow>
+                                                        <TableCell>Cupcake</TableCell>
+                                                        <TableCell align="right">305</TableCell>
+                                                        <TableCell align="right">3.7</TableCell>
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell>Donut</TableCell>
+                                                        <TableCell align="right">452</TableCell>
+                                                        <TableCell align="right">25.0</TableCell>
+                                                    </TableRow>
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Sortable Table</h3>
+                                    <div className="component-showcase">
+                                        <TableContainer component={Paper}>
+                                            <Table>
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <TableSortLabel
+                                                                active={orderBy === 'name'}
+                                                                direction={orderBy === 'name' ? order : 'asc'}
+                                                                onClick={() => handleRequestSort('name')}
+                                                            >
+                                                                Dessert
+                                                            </TableSortLabel>
+                                                        </TableCell>
+                                                        <TableCell align="right">
+                                                            <TableSortLabel
+                                                                active={orderBy === 'calories'}
+                                                                direction={orderBy === 'calories' ? order : 'asc'}
+                                                                onClick={() => handleRequestSort('calories')}
+                                                            >
+                                                                Calories
+                                                            </TableSortLabel>
+                                                        </TableCell>
+                                                        <TableCell align="right">
+                                                            <TableSortLabel
+                                                                active={orderBy === 'fat'}
+                                                                direction={orderBy === 'fat' ? order : 'asc'}
+                                                                onClick={() => handleRequestSort('fat')}
+                                                            >
+                                                                Fat (g)
+                                                            </TableSortLabel>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {sortedData.map((row) => (
+                                                        <TableRow key={row.id}>
+                                                            <TableCell>{row.name}</TableCell>
+                                                            <TableCell align="right">{row.calories}</TableCell>
+                                                            <TableCell align="right">{row.fat}</TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Tooltips Section */}
+                            <div className="section">
+                                <h2 className="section-title">Tooltips</h2>
+
+                                <div className="subsection">
+                                    <div className="component-showcase">
+                                        <div className="component-row">
+                                            <Tooltip title="Delete">
+                                                <IconButton>
+                                                    <span className="material-icons">delete</span>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Add" placement="top">
+                                                <IconButton>
+                                                    <span className="material-icons">add</span>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Settings" placement="bottom">
+                                                <IconButton>
+                                                    <span className="material-icons">settings</span>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Favorite" placement="left">
+                                                <IconButton>
+                                                    <span className="material-icons">favorite</span>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Share" placement="right">
+                                                <IconButton>
+                                                    <span className="material-icons">share</span>
+                                                </IconButton>
+                                            </Tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Typography Section */}
+                            <div className="section">
+                                <h2 className="section-title">Typography</h2>
+
+                                <div className="subsection">
+                                    <div className="component-showcase">
+                                        <Typography variant="h1" gutterBottom>H1 Heading</Typography>
+                                        <Typography variant="h2" gutterBottom>H2 Heading</Typography>
+                                        <Typography variant="h3" gutterBottom>H3 Heading</Typography>
+                                        <Typography variant="h4" gutterBottom>H4 Heading</Typography>
+                                        <Typography variant="h5" gutterBottom>H5 Heading</Typography>
+                                        <Typography variant="h6" gutterBottom>H6 Heading</Typography>
+                                        <Typography variant="subtitle1" gutterBottom>Subtitle 1</Typography>
+                                        <Typography variant="subtitle2" gutterBottom>Subtitle 2</Typography>
+                                        <Typography variant="body1" gutterBottom>Body 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                                        <Typography variant="body2" gutterBottom>Body 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                                        <Typography variant="button" display="block" gutterBottom>Button Text</Typography>
+                                        <Typography variant="caption" display="block" gutterBottom>Caption Text</Typography>
+                                        <Typography variant="overline" display="block" gutterBottom>Overline Text</Typography>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Form Inputs Section */}
+                            <div className="section">
+                                <h2 className="section-title">Form Inputs</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Sample Form</h3>
+                                    <div className="component-showcase">
+                                        <Box component="form" sx={{ '& > *': { m: 1 } }}>
+                                            <div>
+                                                <div className="component-label">Text Field</div>
+                                                <TextField label="Standard" variant="outlined" />
+                                                <TextField label="Filled" variant="filled" />
+                                                <TextField label="Standard" variant="standard" />
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Number Field</div>
+                                                <TextField type="number" label="Number" variant="outlined" />
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Checkbox</div>
+                                                <FormControlLabel
+                                                    control={<Checkbox checked={checkboxState} onChange={(e) => setCheckboxState(e.target.checked)} />}
+                                                    label="I agree to terms"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Radio Group</div>
+                                                <FormControl>
+                                                    <FormLabel>Gender</FormLabel>
+                                                    <RadioGroup value={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
+                                                        <FormControlLabel value="option1" control={<Radio />} label="Female" />
+                                                        <FormControlLabel value="option2" control={<Radio />} label="Male" />
+                                                        <FormControlLabel value="option3" control={<Radio />} label="Other" />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Rating</div>
+                                                <Rating value={ratingValue} onChange={(e, newValue) => setRatingValue(newValue)} />
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Select</div>
+                                                <FormControl sx={{ minWidth: 200 }}>
+                                                    <InputLabel>Age</InputLabel>
+                                                    <Select value={selectValue} onChange={(e) => setSelectValue(e.target.value)} label="Age">
+                                                        <MenuItem value={10}>Ten</MenuItem>
+                                                        <MenuItem value={20}>Twenty</MenuItem>
+                                                        <MenuItem value={30}>Thirty</MenuItem>
+                                                    </Select>
+                                                </FormControl>
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Slider</div>
+                                                <Slider value={sliderValue} onChange={(e, newValue) => setSliderValue(newValue)} sx={{ width: 200 }} />
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Switch</div>
+                                                <FormControlLabel
+                                                    control={<Switch checked={switchState} onChange={(e) => setSwitchState(e.target.checked)} />}
+                                                    label="Enable notifications"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Button Group</div>
+                                                <ButtonGroup>
+                                                    <Button>Left</Button>
+                                                    <Button>Center</Button>
+                                                    <Button>Right</Button>
+                                                </ButtonGroup>
+                                            </div>
+
+                                            <div>
+                                                <div className="component-label">Submit Button</div>
+                                                <Button variant="contained" type="button">Submit Form</Button>
+                                            </div>
+                                        </Box>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Feedback Components Section */}
+                            <div className="section">
+                                <h2 className="section-title">Feedback Components</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Alerts</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={2}>
+                                            <Alert severity="error">This is an error alert</Alert>
+                                            <Alert severity="warning">This is a warning alert</Alert>
+                                            <Alert severity="info">This is an info alert</Alert>
+                                            <Alert severity="success">This is a success alert</Alert>
+                                            <Alert severity="success" variant="outlined">Success outlined alert</Alert>
+                                            <Alert severity="error" variant="filled">Error filled alert</Alert>
+                                        </Stack>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Progress</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={2}>
+                                            <div className="component-label">Circular Progress</div>
+                                            <div className="component-row">
+                                                <CircularProgress />
+                                                <CircularProgress color="secondary" />
+                                                <CircularProgress variant="determinate" value={75} />
+                                            </div>
+                                            <div className="component-label">Linear Progress</div>
+                                            <LinearProgress />
+                                            <LinearProgress color="secondary" />
+                                            <LinearProgress variant="determinate" value={50} />
+                                        </Stack>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Skeleton</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={1}>
+                                            <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                                            <Skeleton variant="circular" width={40} height={40} />
+                                            <Skeleton variant="rectangular" width={210} height={60} />
+                                            <Skeleton variant="rounded" width={210} height={60} />
+                                        </Stack>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Interactive Feedback</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={2}>
+                                            <Button variant="contained" onClick={() => setDialogOpen(true)}>
+                                                Open Dialog
+                                            </Button>
+                                            <Button variant="contained" onClick={() => setBackdropOpen(true)}>
+                                                Show Backdrop
+                                            </Button>
+                                            <Button variant="contained" onClick={() => setSnackbarOpen(true)}>
+                                                Show Snackbar
+                                            </Button>
+                                        </Stack>
+                                    </div>
+                                </div>
+
+                                {/* Dialog */}
+                                <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+                                    <DialogTitle>Dialog Title</DialogTitle>
+                                    <DialogContent>
+                                        <Typography>This is a sample dialog with some content.</Typography>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
+                                        <Button onClick={() => setDialogOpen(false)} variant="contained">Confirm</Button>
+                                    </DialogActions>
+                                </Dialog>
+
+                                {/* Backdrop */}
+                                <Backdrop open={backdropOpen} onClick={() => setBackdropOpen(false)} sx={{ zIndex: 9999 }}>
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>
+
+                                {/* Snackbar */}
+                                <Snackbar
+                                    open={snackbarOpen}
+                                    autoHideDuration={3000}
+                                    onClose={() => setSnackbarOpen(false)}
+                                    message="This is a snackbar message"
+                                />
+                            </div>
+
+                            {/* Surface Components Section */}
+                            <div className="section">
+                                <h2 className="section-title">Surface Components</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Accordion</h3>
+                                    <div className="component-showcase">
+                                        <Accordion>
+                                            <AccordionSummary expandIcon={<span className="material-icons">expand_more</span>}>
+                                                <Typography>Accordion 1</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Typography>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                </Typography>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                        <Accordion>
+                                            <AccordionSummary expandIcon={<span className="material-icons">expand_more</span>}>
+                                                <Typography>Accordion 2</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Typography>
+                                                    Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                </Typography>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Cards</h3>
+                                    <div className="component-showcase">
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} sm={6} md={4}>
+                                                <Card>
+                                                    <CardHeader title="Card Title" subheader="September 14, 2023" />
+                                                    <CardContent>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            This is a sample card with some content.
+                                                        </Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Button size="small">Share</Button>
+                                                        <Button size="small">Learn More</Button>
+                                                    </CardActions>
+                                                </Card>
+                                            </Grid>
+                                            <Grid item xs={12} sm={6} md={4}>
+                                                <Card>
+                                                    <CardContent>
+                                                        <Typography variant="h5" component="div">
+                                                            Simple Card
+                                                        </Typography>
+                                                        <Typography variant="body2">
+                                                            This is a simpler card without header.
+                                                        </Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Button size="small">Action</Button>
+                                                    </CardActions>
+                                                </Card>
+                                            </Grid>
+                                        </Grid>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Paper</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={2}>
+                                            <Paper elevation={0} sx={{ p: 2 }}>elevation=0</Paper>
+                                            <Paper elevation={1} sx={{ p: 2 }}>elevation=1</Paper>
+                                            <Paper elevation={2} sx={{ p: 2 }}>elevation=2</Paper>
+                                            <Paper elevation={3} sx={{ p: 2 }}>elevation=3</Paper>
+                                        </Stack>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Navigation Components Section */}
+                            <div className="section">
+                                <h2 className="section-title">Navigation Components</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Bottom Navigation</h3>
+                                    <div className="component-showcase">
+                                        <BottomNavigation
+                                            value={bottomNavValue}
+                                            onChange={(event, newValue) => setBottomNavValue(newValue)}
+                                        >
+                                            <BottomNavigationAction label="Recents" icon={<span className="material-icons">restore</span>} />
+                                            <BottomNavigationAction label="Favorites" icon={<span className="material-icons">favorite</span>} />
+                                            <BottomNavigationAction label="Archive" icon={<span className="material-icons">archive</span>} />
+                                        </BottomNavigation>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Breadcrumbs</h3>
+                                    <div className="component-showcase">
+                                        <Breadcrumbs>
+                                            <Link underline="hover" color="inherit" href="#">Home</Link>
+                                            <Link underline="hover" color="inherit" href="#">Catalog</Link>
+                                            <Typography color="text.primary">Accessories</Typography>
+                                        </Breadcrumbs>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Drawer</h3>
+                                    <div className="component-showcase">
+                                        <Button variant="contained" onClick={() => setDrawerOpen(true)}>
+                                            Open Drawer
+                                        </Button>
+                                        <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+                                            <Box sx={{ width: 250 }} role="presentation">
+                                                <List>
+                                                    <ListItem>
+                                                        <ListItemIcon>
+                                                            <span className="material-icons">inbox</span>
+                                                        </ListItemIcon>
+                                                        <ListItemText primary="Inbox" />
+                                                    </ListItem>
+                                                    <ListItem>
+                                                        <ListItemIcon>
+                                                            <span className="material-icons">mail</span>
+                                                        </ListItemIcon>
+                                                        <ListItemText primary="Mail" />
+                                                    </ListItem>
+                                                </List>
+                                            </Box>
+                                        </Drawer>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Links</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={1}>
+                                            <Link href="#">Default Link</Link>
+                                            <Link href="#" underline="none">No underline</Link>
+                                            <Link href="#" underline="hover">Underline on hover</Link>
+                                            <Link href="#" underline="always">Always underline</Link>
+                                        </Stack>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Menu</h3>
+                                    <div className="component-showcase">
+                                        <Button variant="contained" onClick={(e) => setAnchorEl(e.currentTarget)}>
+                                            Open Menu
+                                        </Button>
+                                        <Menu
+                                            anchorEl={anchorEl}
+                                            open={Boolean(anchorEl)}
+                                            onClose={() => setAnchorEl(null)}
+                                        >
+                                            <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
+                                            <MenuItem onClick={() => setAnchorEl(null)}>My account</MenuItem>
+                                            <MenuItem onClick={() => setAnchorEl(null)}>Logout</MenuItem>
+                                        </Menu>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Pagination</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={2}>
+                                            <Pagination count={10} />
+                                            <Pagination count={10} color="primary" />
+                                            <Pagination count={10} color="secondary" />
+                                            <Pagination count={10} variant="outlined" />
+                                        </Stack>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Stepper</h3>
+                                    <div className="component-showcase">
+                                        <Stepper activeStep={activeStep}>
+                                            <Step>
+                                                <StepLabel>Select campaign settings</StepLabel>
+                                            </Step>
+                                            <Step>
+                                                <StepLabel>Create an ad group</StepLabel>
+                                            </Step>
+                                            <Step>
+                                                <StepLabel>Create an ad</StepLabel>
+                                            </Step>
+                                        </Stepper>
+                                        <Box sx={{ mt: 2 }}>
+                                            <Button
+                                                disabled={activeStep === 0}
+                                                onClick={() => setActiveStep(activeStep - 1)}
+                                            >
+                                                Back
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                onClick={() => setActiveStep(activeStep + 1)}
+                                                disabled={activeStep === 2}
+                                                sx={{ ml: 1 }}
+                                            >
+                                                Next
+                                            </Button>
+                                        </Box>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Tabs</h3>
+                                    <div className="component-showcase">
+                                        <Tabs value={activeTab} onChange={(e, newValue) => setActiveTab(newValue)}>
+                                            <Tab label="Item One" />
+                                            <Tab label="Item Two" />
+                                            <Tab label="Item Three" />
+                                        </Tabs>
+                                        <Box sx={{ p: 3 }}>
+                                            {activeTab === 0 && <Typography>Content for Tab One</Typography>}
+                                            {activeTab === 1 && <Typography>Content for Tab Two</Typography>}
+                                            {activeTab === 2 && <Typography>Content for Tab Three</Typography>}
+                                        </Box>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Layout Components Section */}
+                            <div className="section">
+                                <h2 className="section-title">Layout Components</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Box</h3>
+                                    <div className="component-showcase">
+                                        <Box sx={{ bgcolor: theme.palette.primary.main, p: 2, color: 'white' }}>
+                                            This is a Box component with primary background
+                                        </Box>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Container</h3>
+                                    <div className="component-showcase">
+                                        <Container maxWidth="sm" sx={{ bgcolor: '#f5f5f5', p: 2 }}>
+                                            This is a Container with maxWidth="sm"
+                                        </Container>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Grid</h3>
+                                    <div className="component-showcase">
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} sm={6} md={4}>
+                                                <Paper sx={{ p: 2 }}>xs=12 sm=6 md=4</Paper>
+                                            </Grid>
+                                            <Grid item xs={12} sm={6} md={4}>
+                                                <Paper sx={{ p: 2 }}>xs=12 sm=6 md=4</Paper>
+                                            </Grid>
+                                            <Grid item xs={12} sm={6} md={4}>
+                                                <Paper sx={{ p: 2 }}>xs=12 sm=6 md=4</Paper>
+                                            </Grid>
+                                        </Grid>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Stack</h3>
+                                    <div className="component-showcase">
+                                        <Stack spacing={2}>
+                                            <Paper sx={{ p: 2 }}>Item 1</Paper>
+                                            <Paper sx={{ p: 2 }}>Item 2</Paper>
+                                            <Paper sx={{ p: 2 }}>Item 3</Paper>
+                                        </Stack>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Image List</h3>
+                                    <div className="component-showcase">
+                                        <ImageList sx={{ width: '100%', maxWidth: 500 }} cols={3} rowHeight={164}>
+                                            {[1, 2, 3, 4, 5, 6].map((item) => (
+                                                <ImageListItem key={item}>
+                                                    <Box
+                                                        sx={{
+                                                            width: '100%',
+                                                            height: 164,
+                                                            bgcolor: theme.palette.grey[300],
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center'
+                                                        }}
+                                                    >
+                                                        {item}
+                                                    </Box>
+                                                </ImageListItem>
+                                            ))}
+                                        </ImageList>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Utils Section */}
+                            <div className="section">
+                                <h2 className="section-title">Utils</h2>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Modal</h3>
+                                    <div className="component-showcase">
+                                        <Button variant="contained" onClick={() => setModalOpen(true)}>
+                                            Open Modal
+                                        </Button>
+                                        <Modal
+                                            open={modalOpen}
+                                            onClose={() => setModalOpen(false)}
+                                        >
+                                            <Box sx={{
+                                                position: 'absolute',
+                                                top: '50%',
+                                                left: '50%',
+                                                transform: 'translate(-50%, -50%)',
+                                                width: 400,
+                                                bgcolor: 'background.paper',
+                                                boxShadow: 24,
+                                                p: 4,
+                                            }}>
+                                                <Typography variant="h6" component="h2">
+                                                    Modal Title
+                                                </Typography>
+                                                <Typography sx={{ mt: 2 }}>
+                                                    This is a modal component. Click outside or press ESC to close.
+                                                </Typography>
+                                                <Button sx={{ mt: 2 }} onClick={() => setModalOpen(false)}>Close</Button>
+                                            </Box>
+                                        </Modal>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">Popover</h3>
+                                    <div className="component-showcase">
+                                        <Button variant="contained" onClick={(e) => setPopoverAnchorEl(e.currentTarget)}>
+                                            Open Popover
+                                        </Button>
+                                        <Popover
+                                            open={Boolean(popoverAnchorEl)}
+                                            anchorEl={popoverAnchorEl}
+                                            onClose={() => setPopoverAnchorEl(null)}
+                                            anchorOrigin={{
+                                                vertical: 'bottom',
+                                                horizontal: 'left',
+                                            }}
+                                        >
+                                            <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+                                        </Popover>
+                                    </div>
+                                </div>
+
+                                <div className="subsection">
+                                    <h3 className="subsection-title">CSS Baseline</h3>
+                                    <div className="component-showcase">
+                                        <Typography>
+                                            CSS Baseline is already applied globally to normalize styles across browsers.
+                                            It provides an elegant, consistent, and simple baseline to build upon.
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Footer */}
+                            <Box sx={{ py: 6, textAlign: 'center', bgcolor: theme.palette.info.main, color: 'white', mt: 4 }}>
+                                <Typography variant="h6">JeffyMakesIt.Fun Component Library</Typography>
+                                <Typography variant="body2" sx={{ mt: 1 }}>
+                                    Interactive showcase of Material UI components
+                                </Typography>
+                            </Box>
+                        </Container>
+                    </div>
+                </ThemeProvider>
+            );
+        }
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<ComponentLibrary />);
+    </script>
+</body>
+</html>
