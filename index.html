@@ -3,29 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JeffyMakesIt.Fun - Coming Soon</title>
+    <title>JeffyMakesIt.Fun - Making Innovation Fun!</title>
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://i.ibb.co/nNfPRHpf/JMIF-Hero-BG.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .big-blog-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .big-blog-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+        }
+
+        .subscribe-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .subscribe-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .subscribe-button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.6);
+        }
+
+        .blog-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-card-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .blog-card:nth-child(1) .blog-card-title {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .blog-card:nth-child(2) .blog-card-title {
+            background: linear-gradient(135deg, #20B2AA, #00CED1);
+            color: white;
+        }
+
+        .blog-card:nth-child(3) .blog-card-title {
+            background: linear-gradient(135deg, #FF8C00, #FF6347);
+            color: white;
+        }
+
+        .blog-card:nth-child(4) .blog-card-title {
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            color: white;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 50px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-decoration: none;
+            color: white;
+            font-size: 1.8em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-link.facebook {
+            background: linear-gradient(135deg, #3b5998, #4c70ba);
+        }
+
+        .social-link.instagram {
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .social-link.x {
+            background: linear-gradient(135deg, #000000, #333333);
+        }
+
+        .social-link.bluesky {
+            background: linear-gradient(135deg, #0085FF, #00A3FF);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .content-section {
+                padding: 25px;
+            }
+
+            .blog-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .big-blog-button {
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>JeffyMakesIt.Fun is coming soon.</h1>
+    <div class="container">
+        <!-- Banner Image -->
+        <img src="https://i.ibb.co/zTpvLPrd/JMIF-Banner-Full.png" alt="JeffyMakesIt.Fun Banner" class="banner">
 
-    <p>Sign up to stay in the know</p>
-    <a href="javascript:void(0);" class="lightbox-253648973091064" onclick="return false;">Subscribe to Newsletter</a>
+        <div class="content-section">
+            <h1>Welcome to JeffyMakesIt.Fun!</h1>
 
-    <p>Check out our blog: <a href="https://blog.jeffymakesit.fun">blog.jeffymakesit.fun</a></p>
+            <!-- Big Blog Button -->
+            <a href="https://blog.jeffymakesit.fun" class="big-blog-button">Visit Our Blog</a>
 
-    <p>Follow us on social:</p>
-    <ul>
-        <li><a href="https://www.facebook.com/jeffymakesitfun">Facebook</a></li>
-        <li><a href="https://www.instagram.com/jeffymakesitfun">Instagram</a></li>
-        <li><a href="https://x.com/jeffymakesitfun">X</a></li>
-        <li><a href="https://bsky.app/profile/jeffymakesitfun.bsky.social">BlueSky</a></li>
-    </ul>
+            <!-- Subscribe Section -->
+            <div class="subscribe-section">
+                <h2>Stay in the Loop!</h2>
+                <a href="javascript:void(0);" class="lightbox-253648973091064 subscribe-button" onclick="return false;">Subscribe to Newsletter</a>
+            </div>
+
+            <!-- Blog Cards -->
+            <div class="blog-cards">
+                <a href="https://blog.jeffymakesit.fun" class="blog-card">
+                    <img src="https://i.ibb.co/93SKhPCX/JMIF-CCCGP.png" alt="Choose Greater Peoria">
+                    <div class="blog-card-title">Learn Why Cool Cats #ChooseGreaterPeoria</div>
+                </a>
+
+                <a href="https://blog.jeffymakesit.fun" class="blog-card">
+                    <img src="https://i.ibb.co/tTwsNsP1/JMIF-Illinovation-Blog-B.png" alt="Illinovation">
+                    <div class="blog-card-title">Discover Illinovation: The Prairie Forge</div>
+                </a>
+
+                <a href="https://blog.jeffymakesit.fun" class="blog-card">
+                    <img src="https://i.ibb.co/xp3VgKS/JMIF-JMAIFun.png" alt="AI Fun">
+                    <div class="blog-card-title">Jeffy Makes AI Fun</div>
+                </a>
+
+                <a href="https://blog.jeffymakesit.fun" class="blog-card">
+                    <img src="https://i.ibb.co/zH5fg34B/JMIF-JM-Founding-Fun.png" alt="Founding Fun">
+                    <div class="blog-card-title">Jeffy Makes Founding Fun</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com/jeffymakesitfun" class="social-link facebook" target="_blank" rel="noopener">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/jeffymakesitfun" class="social-link instagram" target="_blank" rel="noopener">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/jeffymakesitfun" class="social-link x" target="_blank" rel="noopener">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="https://bsky.app/profile/jeffymakesitfun.bsky.social" class="social-link bluesky" target="_blank" rel="noopener">
+                <i class="fas fa-cloud"></i>
+            </a>
+        </div>
+
+        <div class="copyright">
+            Copyright 2026. JeffyMakesIt.Fun. All Rights Reserved.
+        </div>
+    </footer>
 
     <!-- Jotform Newsletter Lightbox -->
     <script src="https://cdn.jotfor.ms/s/static/latest/static/feedback2.js" type="text/javascript"></script>
